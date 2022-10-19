@@ -15,9 +15,9 @@ group = 'hexlet.code'
 version = '1.0-SNAPSHOT'
 //sourceCompatibility = '17'
 
-compileJava {
-    options.release = 17
-}
+//compileJava {
+//    options.release = 17
+//}
 
 repositories {
 	mavenCentral()
@@ -61,6 +61,15 @@ test {
 		port = 6300
 		jmx = false
 	}
+}
+
+jar {
+    manifest {
+        attributes(
+//                'Class-Path': configurations.compileClasspath.collect { it.getName() }.join(' '),
+                'Main-Class': 'hexlet.code.App'
+        )
+    }
 }
 
 // Таска нужная heroku для деплоя
