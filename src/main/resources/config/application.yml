@@ -1,8 +1,11 @@
+server:
+  port: ${PORT:7337}
 logging:
   level:
     root: INFO
 spring:
   profiles:
+#    active: postgres
     active: ${PRODUCTION:developing}
 ---
 spring:
@@ -33,7 +36,7 @@ spring:
   datasource:
     engine: django.db.backends.postgresql
     name: ${PGDATABASE}
-    url: jdbc:${DATABASE_URL}
+#    url: jdbc:${DATABASE_URL}
     username: ${PGUSER}
     password: ${PGPASSWORD}
     host: ${PGHOST}
@@ -44,6 +47,7 @@ spring:
     change-log: classpath:db/changelog/changelog-master.yaml
 
   jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     hibernate:
       ddl-auto: create
@@ -51,19 +55,27 @@ spring:
 spring:
   profiles: postgres
   datasource:
+    initialization-mode: always
+    platform: postgres
 #    engine: django.db.backends.postgresql
-    name: railway
+#    name: railway
     url: jdbc:postgresql://postgres:rPuQnmyi4wY5F1f7cdEP@containers-us-west-29.railway.app:7337/railway
     username: postgres
     password: rPuQnmyi4wY5F1f7cdEP
-    host: containers-us-west-29.railway.app
-    port: 7337
+#    host: containers-us-west-29.railway.app
+#    port: 7337
 
   liquibase:
     enabled: false
     change-log: classpath:db/changelog/changelog-master.yaml
 
   jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     hibernate:
       ddl-auto: create
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
