@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TestController {
-    @Value("myUrl")
+    @Value("${myUrl}")
     private String str;
     @Autowired
     private UserRepository userRepository;
