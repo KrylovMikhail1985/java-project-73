@@ -21,4 +21,17 @@ public class TestController {
     public Iterable<User> getAllUsers() {
         return userRepository.findAll();
     }
+    @GetMapping("/")
+    public String showMyENV() {
+        String result = "";
+        result = result + "DEV = " + System.getenv("DEV") + "\n";
+        result = result + "PGHOST = " + System.getenv("PGHOST") + "\n";
+        result = result + "PGPORT = " + System.getenv("PGPORT") + "\n";
+        result = result + "PGUSER = " + System.getenv("PGUSER") + "\n";
+        result = result + "PGPASSWORD = " + System.getenv("PGPASSWORD") + "\n";
+        result = result + "PGDATABASE = " + System.getenv("PGDATABASE") + "\n";
+        result = result + "DATABASE_URL = " + System.getenv("DATABASE_URL") + "\n";
+        System.out.println(result);
+        return result;
+    }
 }
