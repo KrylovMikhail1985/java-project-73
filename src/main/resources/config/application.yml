@@ -7,10 +7,10 @@ spring:
 ---
 spring:
   profiles: development
-  datasource:
-    url: jdbc:h2:mem:myDB
-    username: sa
-    password:
+#  datasource:
+#    url: jdbc:h2:mem:myDB
+#    username: sa
+#    password:
 
   liquibase:
     enabled: false
@@ -30,10 +30,10 @@ spring:
 ---
 spring:
   profiles: production
-  datasource:
-    url: jdbc:${DATABASE_URL}
-    username: ${PGUSER}
-    password: ${PGPASSWORD}
+#  datasource:
+#    url: jdbc:${DATABASE_URL}
+#    username: ${PGUSER}
+#    password: ${PGPASSWORD}
 
   liquibase:
     enabled: false
