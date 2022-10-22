@@ -30,10 +30,10 @@ spring:
 ---
 spring:
   profiles: production
-#  datasource:
-#    url: jdbc:${DATABASE_URL}
-#    username: ${PGUSER}
-#    password: ${PGPASSWORD}
+  datasource:
+    url: postgresql://postgres:rPuQnmyi4wY5F1f7cdEP@containers-us-west-29.railway.app:7337/railway
+    username: postgres
+    password: rPuQnmyi4wY5F1f7cdEP
 
   liquibase:
     enabled: false
@@ -42,7 +42,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
 ---
 spring:
   profiles: postgres
