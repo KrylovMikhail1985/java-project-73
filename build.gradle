@@ -33,6 +33,7 @@ dependencies {
 //    implementation 'org.hibernate:hibernate-core'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
 
     // Подключаем зависимости, необходимые для работы плагина
