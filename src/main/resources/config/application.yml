@@ -5,7 +5,7 @@ logging:
     root: INFO
 spring:
   profiles:
-#    active: postgres
+#    active: test
     active: ${PRODUCTION:developing}
 ---
 spring:
@@ -34,48 +34,37 @@ spring:
 spring:
   profiles: production
   datasource:
-    engine: django.db.backends.postgresql
-    name: ${PGDATABASE}
-#    url: jdbc:${DATABASE_URL}
+    url: jdbc:postgresql://${{ PGHOST }}:${{ PGPORT }}/${{ PGDATABASE }}
     username: ${PGUSER}
     password: ${PGPASSWORD}
-    host: ${PGHOST}
-    port: ${PGPORT}
 
   liquibase:
-    enabled: false
+    enabled: true
     change-log: classpath:db/changelog/changelog-master.yaml
 
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+#    database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
 ---
 spring:
-  profiles: postgres
+  profiles: test
   datasource:
     initialization-mode: always
     platform: postgres
-#    engine: django.db.backends.postgresql
-#    name: railway
-    url: jdbc:postgresql://postgres:rPuQnmyi4wY5F1f7cdEP@containers-us-west-29.railway.app:7337/railway
+
+    url: jdbc:postgresql://containers-us-west-29.railway.app:7337/railway
     username: postgres
-    password: rPuQnmyi4wY5F1f7cdEP
-#    host: containers-us-west-29.railway.app
-#    port: 7337
+    password:
+
 
   liquibase:
     enabled: false
     change-log: classpath:db/changelog/changelog-master.yaml
 
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+#    database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     hibernate:
       ddl-auto: create
-    properties:
-      hibernate:
-        jdbc:
-          lob:
-            non_contextual_creation: true
