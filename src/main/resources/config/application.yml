@@ -3,14 +3,14 @@ logging:
     root: INFO
 spring:
   profiles:
-    active: ${DEV:production}
+    active: postgres
 ---
 spring:
-  profiles: development
-#  datasource:
-#    url: jdbc:h2:mem:myDB
-#    username: sa
-#    password:
+  profiles: ${DEV:production}
+  datasource:
+    url: jdbc:h2:mem:myDB
+    username: sa
+    password:
 
   liquibase:
     enabled: false
@@ -31,9 +31,13 @@ spring:
 spring:
   profiles: production
   datasource:
-    url: jdbc:postgresql://postgres:rPuQnmyi4wY5F1f7cdEP@containers-us-west-29.railway.app:7337/railway
+    engine: django.db.backends.postgresql
+    name: railway
+    #    url: jdbc:postgresql://postgres:rPuQnmyi4wY5F1f7cdEP@containers-us-west-29.railway.app:7337/railway
     username: postgres
     password: rPuQnmyi4wY5F1f7cdEP
+    host: containers-us-west-29.railway.app
+    port: 7337
 
   liquibase:
     enabled: false
@@ -47,15 +51,19 @@ spring:
 spring:
   profiles: postgres
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    engine: django.db.backends.postgresql
+    name: railway
+#    url: jdbc:postgresql://postgres:rPuQnmyi4wY5F1f7cdEP@containers-us-west-29.railway.app:7337/railway
     username: postgres
-    password: docker
+    password: rPuQnmyi4wY5F1f7cdEP
+    host: containers-us-west-29.railway.app
+    port: 7337
 
   liquibase:
-    enabled: true
+    enabled: false
     change-log: classpath:db/changelog/changelog-master.yaml
 
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
