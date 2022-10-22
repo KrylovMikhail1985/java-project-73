@@ -34,7 +34,7 @@ spring:
 spring:
   profiles: production
   datasource:
-    url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
+    url: jdbc:postgresql://containers-us-west-29.railway.app:7337/railway
     username: ${PGUSER}
     password: ${PGPASSWORD}
 
