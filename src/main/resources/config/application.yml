@@ -1,5 +1,5 @@
 server:
-  port: ${PORT:7337}
+  port: ${PORT:8080}
 logging:
   level:
     root: INFO
@@ -34,7 +34,7 @@ spring:
 spring:
   profiles: production
   datasource:
-    url: jdbc:postgresql://${{ PGHOST }}:${{ PGPORT }}/${{ PGDATABASE }}
+    url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
     username: ${PGUSER}
     password: ${PGPASSWORD}
 
@@ -43,7 +43,6 @@ spring:
     change-log: classpath:db/changelog/changelog-master.yaml
 
   jpa:
-#    database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     hibernate:
       ddl-auto: validate
@@ -60,11 +59,10 @@ spring:
 
 
   liquibase:
-    enabled: false
+    enabled: true
     change-log: classpath:db/changelog/changelog-master.yaml
 
   jpa:
-#    database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
