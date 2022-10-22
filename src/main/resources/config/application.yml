@@ -56,7 +56,7 @@ spring:
 
     url: jdbc:postgresql://containers-us-west-29.railway.app:7337/railway
     username: postgres
-    password:
+    password: ${PASSWORD}
 
 
   liquibase:
