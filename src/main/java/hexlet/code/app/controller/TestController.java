@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TestController {
-    @Value("${myUrl}")
-    private String str;
+
     @Autowired
     private UserRepository userRepository;
     @PostMapping("/users")
@@ -29,9 +28,9 @@ public class TestController {
         String host = System.getenv("PGHOST");
         String port = System.getenv("PGPORT");
         String database = System.getenv("PGDATABASE");
-        System.out.println(str);
+
         System.out.println("jdbc:postgresql://" + host + ":"  + port + "/" + database);
         System.out.println("jdbc:postgresql://containers-us-west-29.railway.app:7337/railway");
-        return str;
+        return "Test";
     }
 }
