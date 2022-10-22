@@ -13,7 +13,7 @@ spring:
     password:
 
   liquibase:
-    enabled: true
+    enabled: false
     change-log: classpath:db/changelog/changelog-master.yaml
 
   h2:
@@ -26,7 +26,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
 ---
 spring:
   profiles: production
@@ -36,13 +36,13 @@ spring:
     password: ${PGPASSWORD}
 
   liquibase:
-    enabled: true
+    enabled: false
     change-log: classpath:db/changelog/changelog-master.yaml
 
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
 ---
 spring:
   profiles: postgres
