@@ -3,7 +3,7 @@ logging:
     root: INFO
 spring:
   profiles:
-    active: ${PRODUCTION:development}
+    active: ${DEV:production}
 ---
 spring:
   profiles: development
