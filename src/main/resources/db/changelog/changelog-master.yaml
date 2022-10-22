@@ -1,0 +1,32 @@
+databaseChangeLog:
+- changeSet:
+    id: 1666424189572-1
+    author: mikhailkrylov (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: usersPK
+            name: id
+            type: BIGINT
+        - column:
+            name: created_at
+            type: VARCHAR(255)
+        - column:
+            name: email
+            type: VARCHAR(255)
+        - column:
+            name: first_name
+            type: VARCHAR(255)
+        - column:
+            name: last_name
+            type: VARCHAR(255)
+        - column:
+            name: password
+            type: VARCHAR(255)
+        tableName: users
+

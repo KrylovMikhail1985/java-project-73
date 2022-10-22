@@ -1,0 +1,45 @@
+logging:
+  level:
+    root: INFO
+spring:
+  profiles:
+    active: ${PRODUCTION:development}
+---
+spring:
+  profiles: development
+  datasource:
+    url: jdbc:h2:mem:myDB
+    username: sa
+    password:
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/changelog-master.yaml
+
+  h2:
+    console:
+      enabled: true
+      path: /h2console/
+      settings:
+        web-allow-others: true
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+---
+spring:
+  profiles: production
+  datasource:
+    url: jdbc:${DATABASE_URL}
+    username: ${PGUSER}
+    password: ${PGPASSWORD}
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/changelog-master.yaml
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate

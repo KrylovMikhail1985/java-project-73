@@ -1,10 +1,11 @@
 plugins {
-	id 'org.springframework.boot' version '2.7.4'
-	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
+    id 'org.springframework.boot' version '2.7.5'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 	id 'java'
 	id 'application'
 	id 'jacoco'
 	id 'checkstyle'
+    id 'org.liquibase.gradle' version '2.0.4'
 }
 
 application {
@@ -24,9 +25,23 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.liquibase:liquibase-core'
+//    implementation 'org.postgresql:postgresql'
+//    implementation 'org.hibernate:hibernate-core'
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'com.h2database:h2'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // Подключаем зависимости, необходимые для работы плагина
+    liquibaseRuntime 'org.liquibase:liquibase-core:4.15.0'
+    liquibaseRuntime 'org.springframework.boot:spring-boot-starter-data-jpa'
+    liquibaseRuntime 'org.liquibase.ext:liquibase-hibernate5:4.15.0'
+    liquibaseRuntime sourceSets.main.output
 }
+
 
 tasks.named('test') {
 	useJUnitPlatform()
@@ -42,6 +57,34 @@ jacocoTestReport {
         csv.required = false
         html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
     }
+}
+// Настраиваем Liquibase
+liquibase {
+    activities {
+        main {
+            // Указываем путь, по которому будет сгенерирован файл миграции
+            changeLogFile 'src/main/resources/db/changelog/changelog-master.yaml'
+            // Указываем источник, с которым будут сравниваться изменения
+            // Это база данных, изначально она пустая
+            url 'jdbc:h2:mem:myDB'
+            // Имя пользователя и пароль для подключения к базе
+            username 'sa'
+            password ''
+            // Сравниваем с моделями, задавая пакет
+            referenceUrl 'hibernate:spring:hexlet.code.app.model' +
+                    // Указываем диалект
+                    '?dialect=org.hibernate.dialect.H2Dialect' +
+                    // Указываем правила именования таблиц и столбцов,
+                    // чтобы они соответствовали правилам Spring
+                    '&hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy'
+        }
+    }
+}
+
+// Настраиваем таску diffChangeLog таким образом,
+// чтобы миграция генерировалась при каждом изменении в модели
+diffChangeLog {
+    dependsOn compileJava
 }
 
 test {
@@ -75,3 +118,4 @@ jar {
 // Таска нужная heroku для деплоя
 task stage(dependsOn: [clean, installDist])
 installDist.mustRunAfter clean
+
