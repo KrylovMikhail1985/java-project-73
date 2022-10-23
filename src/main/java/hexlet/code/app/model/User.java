@@ -1,5 +1,7 @@
 package hexlet.code.app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.Table;
@@ -24,6 +26,7 @@ public class User {
     @Column(name = "email")
     private String email;
     @Column(name = "password")
+    @JsonIgnore
     private String password;
 
     @Column(name = "created_at")
