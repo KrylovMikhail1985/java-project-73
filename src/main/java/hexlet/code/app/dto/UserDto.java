@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class UserDto {
+    private long id;
     @NotNull
     @Size(min = 1)
     private String firstName;
@@ -14,18 +15,17 @@ public class UserDto {
     @NotNull
     @Email
     private String email;
-    @NotNull
-    @Size(min = 3)
-    private String password;
+
+
+    private String createdAt;
 
     public UserDto() {
     }
 
-    public UserDto(String firstName, String lastName, String email, String password) {
+    public UserDto(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
     }
 
     public String getFirstName() {
@@ -48,16 +48,23 @@ public class UserDto {
         return email;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
 }

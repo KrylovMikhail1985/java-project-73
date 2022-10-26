@@ -1,0 +1,22 @@
+server:
+  port: 9090
+logging:
+  level:
+    root: INFO
+spring:
+  config:
+    activate:
+      on-profiles: test
+  datasource:
+    url: jdbc:h2:mem:myDB
+    username: sa
+    password:
+
+  liquibase:
+    enabled: false
+    change-log: classpath:db/changelog/changelog-master.yaml
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create

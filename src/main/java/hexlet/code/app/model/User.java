@@ -1,13 +1,13 @@
 package hexlet.code.app.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.Table;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -20,15 +20,17 @@ public class User {
     @Column(name = "id")
     private long id;
     @Column(name = "first_name")
+    @Size(min = 1)
     private String firstName;
     @Column(name = "last_name")
+    @Size(min = 1)
     private String lastName;
     @Column(name = "email")
+    @Email
     private String email;
     @Column(name = "password")
-    @JsonIgnore
+    @Size(min = 3)
     private String password;
-
     @Column(name = "created_at")
     private String createdAt = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy").format(LocalDateTime.now());
 
