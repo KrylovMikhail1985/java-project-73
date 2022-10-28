@@ -1,6 +1,7 @@
 spring:
   datasource:
     url: jdbc:h2:file:./src/main/resources/myDB/myDB
+#    url: jdbc:h2:mem:myDB
     username: sa
     password:
 

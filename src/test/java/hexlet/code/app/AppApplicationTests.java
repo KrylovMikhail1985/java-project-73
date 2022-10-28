@@ -71,7 +71,8 @@ class AppApplicationTests {
     @Test
     public void getUserById() throws Exception {
         MockHttpServletResponse response =
-                mockMvc.perform(get("/api/users/1"))
+                mockMvc.perform(get("/api/users/1")
+                                .header("Authorization", "Basic ZnJvbG92QGZmZi5jb206MTIzMzIx"))
                         .andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(200);
         assertThat(response.getContentAsString()).contains("Shura");
@@ -81,6 +82,7 @@ class AppApplicationTests {
     public void updateUserTest() throws Exception {
         MockHttpServletResponse response =
                 mockMvc.perform(put("/api/users/1")
+                                .header("Authorization", "Basic ZnJvbG92QGZmZi5jb206MTIzMzIx")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content("{" +
                                         "\"firstName\": \"ShuraUpdate\"," +
@@ -155,6 +157,7 @@ class AppApplicationTests {
     public void doNotValidNameForUpdateUserTest() throws Exception {
         MockHttpServletResponse response =
                 mockMvc.perform(put("/api/users/1")
+                        .header("Authorization", "Basic ZnJvbG92QGZmZi5jb206MTIzMzIx")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{" +
                                 "\"firstName\": \"\"," +
@@ -168,6 +171,7 @@ class AppApplicationTests {
     public void doNotValidLastNameForUpdateUserTest() throws Exception {
         MockHttpServletResponse response =
                 mockMvc.perform(put("/api/users/1")
+                        .header("Authorization", "Basic ZnJvbG92QGZmZi5jb206MTIzMzIx")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{" +
                                 "\"firstName\": \"ShuraUpdate\"," +
@@ -181,6 +185,7 @@ class AppApplicationTests {
     public void doNotValidEmailForUpdateUserTest() throws Exception {
         MockHttpServletResponse response =
                 mockMvc.perform(put("/api/users/1")
+                        .header("Authorization", "Basic ZnJvbG92QGZmZi5jb206MTIzMzIx")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{" +
                                 "\"firstName\": \"ShuraUpdate\"," +
@@ -189,5 +194,12 @@ class AppApplicationTests {
                                 "}")
                 ).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(422);
+    }
+    @Test
+    public void getUserByIdNotAuthorized() throws Exception {
+        MockHttpServletResponse response =
+                mockMvc.perform(get("/api/users/1"))
+                        .andReturn().getResponse();
+        assertThat(response.getStatus()).isEqualTo(401);
     }
 }

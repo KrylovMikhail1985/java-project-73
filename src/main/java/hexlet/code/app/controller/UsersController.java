@@ -60,8 +60,8 @@ public class UsersController {
     public void deleteUser(@PathVariable(name = "id") long id) {
         userService.deleteUser(id);
     }
-//    @PatchMapping("/{name}")
-//    public User getUserByName(@PathVariable(name = "name") String name) {
-//        return userService.findByFirstName(name);
+//    @PatchMapping("/{email}")
+//    public User getUserByName(@PathVariable(name = "email") String email) {
+//        return userService.findByEmail(email);
 //    }
 }

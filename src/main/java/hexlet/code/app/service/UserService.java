@@ -12,7 +12,7 @@ public interface UserService {
     List<User> findAllUsers();
     User updateUser(long id, User user) throws NotValidDataException;
     void deleteUser(long id);
-    User findByFirstName(String firstName);
+    User findByEmail(String firstName);
     UserDto convertUserToUserDto(User user);
     List<UserDto> convertListOfUsersToListOfUsersDto(List<User> listOfUsers);
 }
