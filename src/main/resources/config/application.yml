@@ -7,3 +7,5 @@ spring:
   profiles:
 #    active: myTests
     active: ${PRODUCTION:development}
+
+base-url: api
