@@ -3,6 +3,7 @@ package hexlet.code.app.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 public class UserDto {
     private long id;
@@ -17,7 +18,7 @@ public class UserDto {
     private String email;
 
 
-    private String createdAt;
+    private Date createdAt;
 
     public UserDto() {
     }
@@ -56,11 +57,11 @@ public class UserDto {
         this.id = id;
     }
 
-    public String getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 

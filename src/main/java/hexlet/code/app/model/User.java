@@ -1,15 +1,14 @@
 package hexlet.code.app.model;
 
-import javax.persistence.Id;
-import javax.persistence.Column;
-import javax.persistence.Table;
 import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 
 @Entity
@@ -32,8 +31,9 @@ public class User {
     @Size(min = 3)
     private String password;
     @Column(name = "created_at")
-    private String createdAt = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy").format(LocalDateTime.now());
-
+//    @CreationTimestamp
+//    @Temporal(TIMESTAMP)
+    private Date createdAt = new Date();
     public User() {
     }
 
@@ -84,11 +84,11 @@ public class User {
         this.password = password;
     }
 
-    public String getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
     public void setCreatedAt() {
-        this.createdAt = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy").format(LocalDateTime.now());
+        this.createdAt = new Date();
     }
 }

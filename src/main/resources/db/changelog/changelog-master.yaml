@@ -1,6 +1,6 @@
 databaseChangeLog:
 - changeSet:
-    id: 1666424189572-1
+    id: 1667037084565-1
     author: mikhailkrylov (generated)
     changes:
     - createTable:
@@ -15,7 +15,7 @@ databaseChangeLog:
             type: BIGINT
         - column:
             name: created_at
-            type: VARCHAR(255)
+            type: TIMESTAMP
         - column:
             name: email
             type: VARCHAR(255)
