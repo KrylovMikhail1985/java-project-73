@@ -16,6 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 
 
 @SpringBootTest
@@ -39,7 +40,14 @@ class AppApplicationTests {
                         "\"password\": \"123321\"," +
                         "\"email\": \"frolov@fff.com\"" +
                         "}")
-        ).andReturn();
+        );
+        mockMvc.perform(post("/api/statuses")
+                .header("Authorization", "Basic ZnJvbG92QGZmZi5jb206MTIzMzIx")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{" +
+                        "\"name\": \"Новый\"" +
+                        "}")
+        );
     }
     @Test
     public void findAllUsers() throws Exception {
@@ -196,10 +204,111 @@ class AppApplicationTests {
         assertThat(response.getStatus()).isEqualTo(422);
     }
     @Test
-    public void getUserByIdNotAuthorized() throws Exception {
+    public void getUserByIdNotAuthorizedTest() throws Exception {
         MockHttpServletResponse response =
                 mockMvc.perform(get("/api/users/1"))
                         .andReturn().getResponse();
+        assertThat(response.getStatus()).isEqualTo(401);
+    }
+    @Test
+    public void deleteUserTest() throws Exception {
+        MockHttpServletResponse response =
+                mockMvc.perform(delete("/api/users/1")
+                                .header("Authorization", "Basic ZnJvbG92QGZmZi5jb206MTIzMzIx")
+                        ).andReturn().getResponse();
+        assertThat(response.getStatus()).isEqualTo(200);
+    }
+    @Test
+    public void createNewStatusTest() throws Exception {
+        MockHttpServletResponse response =
+                mockMvc.perform(post("/api/statuses")
+                        .header("Authorization", "Basic ZnJvbG92QGZmZi5jb206MTIzMzIx")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{" +
+                                "\"name\": \"В работе\"" +
+                                "}")
+                ).andReturn().getResponse();
+        response.setCharacterEncoding("UTF-8");
+        assertThat(response.getStatus()).isEqualTo(200);
+        assertThat(response.getContentAsString()).contains("В работе");
+    }
+    @Test
+    public void createNewStatusNotValidTest() throws Exception {
+        MockHttpServletResponse response =
+                mockMvc.perform(post("/api/statuses")
+                        .header("Authorization", "Basic ZnJvbG92QGZmZi5jb206MTIzMzIx")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{" +
+                                "\"name\": \"не тот статус\"" +
+                                "}")
+                ).andReturn().getResponse();
+        assertThat(response.getStatus()).isEqualTo(422);
+    }
+    @Test
+    public void createNewStatusNotAuthenticatedTest() throws Exception {
+        MockHttpServletResponse response =
+                mockMvc.perform(post("/api/statuses")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{" +
+                                "\"Name\": \"В работе\"" +
+                                "}")
+                ).andReturn().getResponse();
+        assertThat(response.getStatus()).isEqualTo(401);
+    }
+    @Test
+    public void readStatusTest() throws Exception {
+        MockHttpServletResponse response =
+                mockMvc.perform(get("/api/statuses/1"))
+                        .andReturn().getResponse();
+        assertThat(response.getStatus()).isEqualTo(200);
+        assertThat(response.getContentAsString()).contains("id");
+    }
+    @Test
+    public void readAllStatusesTest() throws Exception {
+        MockHttpServletResponse response =
+                mockMvc.perform(get("/api/statuses"))
+                        .andReturn().getResponse();
+        assertThat(response.getStatus()).isEqualTo(200);
+        assertThat(response.getContentAsString()).contains("id");
+    }
+    @Test
+    public void updateStatusTest() throws Exception {
+        MockHttpServletResponse response =
+                mockMvc.perform(put("/api/statuses/1")
+                        .header("Authorization", "Basic ZnJvbG92QGZmZi5jb206MTIzMzIx")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{" +
+                                "\"name\": \"В работе\"" +
+                                "}")
+                ).andReturn().getResponse();
+        response.setCharacterEncoding("UTF-8");
+        assertThat(response.getStatus()).isEqualTo(200);
+        assertThat(response.getContentAsString()).contains("В работе");
+    }
+    @Test
+    public void updateStatusNotAuthenticatedTest() throws Exception {
+        MockHttpServletResponse response =
+                mockMvc.perform(put("/api/statuses/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{" +
+                                "\"name\": \"В работе\"" +
+                                "}")
+                ).andReturn().getResponse();
+        assertThat(response.getStatus()).isEqualTo(401);
+    }
+    @Test
+    public void deleteStatusTest() throws Exception {
+        MockHttpServletResponse response =
+                mockMvc.perform(delete("/api/statuses/1")
+                        .header("Authorization", "Basic ZnJvbG92QGZmZi5jb206MTIzMzIx")
+                ).andReturn().getResponse();
+        assertThat(response.getStatus()).isEqualTo(200);
+    }
+    @Test
+    public void deleteStatusNotAuthenticatedTest() throws Exception {
+        MockHttpServletResponse response =
+                mockMvc.perform(delete("/api/statuses/1")
+                ).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(401);
     }
 }

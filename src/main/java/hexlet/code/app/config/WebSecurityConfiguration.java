@@ -38,6 +38,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/login").permitAll()
                 .antMatchers("/h2console").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/**").authenticated()
+                .antMatchers(HttpMethod.POST, "/api/statuses/**").authenticated()
+                .antMatchers(HttpMethod.PUT, "/api/statuses/**").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/api/statuses/**").authenticated()
                 .and().httpBasic();
         http.headers().frameOptions().disable();
     }
