@@ -26,6 +26,7 @@ public class SecurityServiceImpl implements SecurityService {
             Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
             return Jwts.builder().setSubject(email).signWith(key).compact();
         }
+        System.out.println("Password is not correct!");
         throw new RuntimeException("Password is not correct!");
     }
 }

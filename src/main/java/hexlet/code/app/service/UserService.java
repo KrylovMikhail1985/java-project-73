@@ -15,4 +15,6 @@ public interface UserService {
     User findByEmail(String firstName);
     UserDto convertUserToUserDto(User user);
     List<UserDto> convertListOfUsersToListOfUsersDto(List<User> listOfUsers);
+    User getCurrentUser();
+    User findUserByUserId(long id);
 }

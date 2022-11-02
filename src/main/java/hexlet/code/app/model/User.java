@@ -1,14 +1,19 @@
 package hexlet.code.app.model;
 
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Column;
+import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -31,9 +36,13 @@ public class User {
     @Size(min = 3)
     private String password;
     @Column(name = "created_at")
-//    @CreationTimestamp
-//    @Temporal(TIMESTAMP)
     private Date createdAt = new Date();
+    @OneToMany(mappedBy = "author",
+            cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST})
+    private List<Task> listOfCreatedTasks;
+    @OneToMany(mappedBy = "executor",
+            cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST})
+    private List<Task> listOfTasksWhereIExecutor;
     public User() {
     }
 

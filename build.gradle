@@ -72,7 +72,7 @@ liquibase {
     activities {
         main {
             // Указываем путь, по которому будет сгенерирован файл миграции
-            changeLogFile 'src/main/resources/db/changelog/changelog-master.yaml'
+            changeLogFile 'src/main/resources/db/changelog/changelog-XX.yaml'
             // Указываем источник, с которым будут сравниваться изменения
             // Это база данных, изначально она пустая
             url 'jdbc:h2:file:./src/main/resources/myDB/myDB'

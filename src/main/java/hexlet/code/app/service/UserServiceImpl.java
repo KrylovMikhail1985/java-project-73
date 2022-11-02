@@ -5,6 +5,7 @@ import hexlet.code.app.exception.NotValidDataException;
 import hexlet.code.app.model.User;
 import hexlet.code.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -81,5 +82,14 @@ public class UserServiceImpl implements UserService {
             userDtoList.add(convertUserToUserDto(user));
         }
         return userDtoList;
+    }
+    @Override
+    public User getCurrentUser() {
+        String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.findByEmail(currentUserEmail);
+    }
+    @Override
+    public User findUserByUserId(long id) {
+        return userRepository.findById(id).orElseThrow();
     }
 }
