@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.CascadeType;
-import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
@@ -26,7 +25,6 @@ public class Task {
     @NotNull
     private String name;
     @Column
-    @Lob
     private String description;
     @NotNull
     @OneToOne(cascade = CascadeType.ALL)

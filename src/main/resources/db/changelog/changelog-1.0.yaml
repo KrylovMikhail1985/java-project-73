@@ -1,6 +1,6 @@
 databaseChangeLog:
 - changeSet:
-    id: 1667162179562-1
+    id: 1667388312622-1
     author: mikhailkrylov (generated)
     changes:
     - createTable:
@@ -21,7 +21,7 @@ databaseChangeLog:
             type: VARCHAR(255)
         tableName: status
 - changeSet:
-    id: 1667162179562-2
+    id: 1667388312622-2
     author: mikhailkrylov (generated)
     changes:
     - createTable:
@@ -39,7 +39,7 @@ databaseChangeLog:
             type: TIMESTAMP
         - column:
             name: description
-            type: CLOB
+            type: VARCHAR(255)
         - column:
             name: name
             type: VARCHAR(255)
@@ -54,7 +54,7 @@ databaseChangeLog:
             type: BIGINT
         tableName: tasks
 - changeSet:
-    id: 1667162179562-3
+    id: 1667388312622-3
     author: mikhailkrylov (generated)
     changes:
     - createTable:
@@ -84,7 +84,7 @@ databaseChangeLog:
             type: VARCHAR(255)
         tableName: users
 - changeSet:
-    id: 1667162179562-4
+    id: 1667388312622-4
     author: mikhailkrylov (generated)
     changes:
     - addForeignKeyConstraint:
@@ -97,7 +97,7 @@ databaseChangeLog:
         referencedTableName: status
         validate: true
 - changeSet:
-    id: 1667162179562-5
+    id: 1667388312622-5
     author: mikhailkrylov (generated)
     changes:
     - addForeignKeyConstraint:
@@ -110,7 +110,7 @@ databaseChangeLog:
         referencedTableName: users
         validate: true
 - changeSet:
-    id: 1667162179562-6
+    id: 1667388312622-6
     author: mikhailkrylov (generated)
     changes:
     - addForeignKeyConstraint:
@@ -122,3 +122,4 @@ databaseChangeLog:
         referencedColumnNames: id
         referencedTableName: users
         validate: true
+
