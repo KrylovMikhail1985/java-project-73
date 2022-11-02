@@ -48,6 +48,16 @@ class AppApplicationTests {
                         "\"name\": \"Новый\"" +
                         "}")
         );
+        mockMvc.perform(post("/api/tasks")
+                .header("Authorization", "Basic ZnJvbG92QGZmZi5jb206MTIzMzIx")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{" +
+                        "\"name\": \"Новая задача\"," +
+                        "\"description\": \"Какое-то описание\"," +
+                        "\"executorId\": 1," +
+                        "\"taskStatusId\": 1" +
+                        "}")
+        );
     }
     @Test
     public void findAllUsers() throws Exception {
@@ -95,6 +105,7 @@ class AppApplicationTests {
                                 .content("{" +
                                         "\"firstName\": \"ShuraUpdate\"," +
                                         "\"lastName\": \"SidorovUpdate\"," +
+                                        "\"password\": \"somePassword\"," +
                                         "\"email\": \"lll@jkl.ru\"" +
                                         "}")
                         ).andReturn().getResponse();
@@ -308,6 +319,113 @@ class AppApplicationTests {
     public void deleteStatusNotAuthenticatedTest() throws Exception {
         MockHttpServletResponse response =
                 mockMvc.perform(delete("/api/statuses/1")
+                ).andReturn().getResponse();
+        assertThat(response.getStatus()).isEqualTo(401);
+    }
+    @Test
+    public void getAllTasksTest() throws Exception {
+        MockHttpServletResponse response =
+                mockMvc.perform(get("/api/tasks")
+                                .header("Authorization", "Basic ZnJvbG92QGZmZi5jb206MTIzMzIx")
+                        ).andReturn().getResponse();
+        response.setCharacterEncoding("UTF-8");
+        assertThat(response.getStatus()).isEqualTo(200);
+        assertThat(response.getContentAsString()).contains("Новая задача", "Новый", "Shura");
+    }
+    @Test
+    public void getTaskById() throws Exception {
+        MockHttpServletResponse response =
+                mockMvc.perform(get("/api/tasks/1")
+                                .header("Authorization", "Basic ZnJvbG92QGZmZi5jb206MTIzMzIx")
+                        ).andReturn().getResponse();
+        response.setCharacterEncoding("UTF-8");
+        assertThat(response.getStatus()).isEqualTo(200);
+        assertThat(response.getContentAsString()).contains("Новая задача", "Новый", "Shura");
+    }
+    @Test
+    public void createTaskTest() throws Exception {
+        MockHttpServletResponse response =
+                mockMvc.perform(post("/api/tasks")
+                        .header("Authorization", "Basic ZnJvbG92QGZmZi5jb206MTIzMzIx")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{" +
+                            "\"name\": \"TestTask\"," +
+                            "\"description\": \"Какое-то описание\"," +
+                            "\"executorId\": 1," +
+                            "\"taskStatusId\": 1" +
+                            "}")).andReturn().getResponse();
+        response.setCharacterEncoding("UTF-8");
+        assertThat(response.getStatus()).isEqualTo(200);
+        assertThat(response.getContentAsString()).contains("TestTask", "Новый", "Shura");
+    }
+    @Test
+    public void updateTaskTest() throws Exception {
+        MockHttpServletResponse response =
+                mockMvc.perform(put("/api/tasks/1")
+                        .header("Authorization", "Basic ZnJvbG92QGZmZi5jb206MTIzMzIx")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{" +
+                                "\"name\": \"Новая задача updated\"," +
+                                "\"description\": \"Какое-то описание\"," +
+                                "\"executorId\": 1," +
+                                "\"taskStatusId\": 1" +
+                                "}")).andReturn().getResponse();
+        response.setCharacterEncoding("UTF-8");
+        assertThat(response.getStatus()).isEqualTo(200);
+        assertThat(response.getContentAsString()).contains("Новая задача updated");
+    }
+    @Test
+    public void deleteTaskTest() throws Exception {
+        MockHttpServletResponse response =
+                mockMvc.perform(delete("/api/tasks/1")
+                        .header("Authorization", "Basic ZnJvbG92QGZmZi5jb206MTIzMzIx")
+                ).andReturn().getResponse();
+        assertThat(response.getStatus()).isEqualTo(200);
+    }
+    @Test
+    public void getAllTasksNotAuthorizedTest() throws Exception {
+        MockHttpServletResponse response =
+                mockMvc.perform(get("/api/tasks"))
+                        .andReturn().getResponse();
+        assertThat(response.getStatus()).isEqualTo(401);
+    }
+    @Test
+    public void getTasksByIdNotAuthorizedTest() throws Exception {
+        MockHttpServletResponse response =
+                mockMvc.perform(get("/api/tasks/1"))
+                        .andReturn().getResponse();
+        assertThat(response.getStatus()).isEqualTo(401);
+    }
+    @Test
+    public void createTaskAuthorizedTest() throws Exception {
+        MockHttpServletResponse response =
+                mockMvc.perform(post("/api/tasks")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{" +
+                                "\"name\": \"TestTask\"," +
+                                "\"description\": \"Какое-то описание\"," +
+                                "\"executorId\": 1," +
+                                "\"taskStatusId\": 1" +
+                                "}")).andReturn().getResponse();
+        assertThat(response.getStatus()).isEqualTo(401);
+    }
+    @Test
+    public void updateTaskNotAuthorizedTest() throws Exception {
+        MockHttpServletResponse response =
+                mockMvc.perform(put("/api/tasks/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{" +
+                                "\"name\": \"Новая задача updated\"," +
+                                "\"description\": \"Какое-то описание\"," +
+                                "\"executorId\": 1," +
+                                "\"taskStatusId\": 1" +
+                                "}")).andReturn().getResponse();
+        assertThat(response.getStatus()).isEqualTo(401);
+    }
+    @Test
+    public void deleteTaskNotAuthorizedTest() throws Exception {
+        MockHttpServletResponse response =
+                mockMvc.perform(delete("/api/tasks/1")
                 ).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(401);
     }

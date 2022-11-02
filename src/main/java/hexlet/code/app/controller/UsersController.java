@@ -27,41 +27,34 @@ public class UsersController {
     @Autowired
     private UserServiceImpl userService;
     @GetMapping("")
-    public List<UserDto> getAllUsers() {
-        List<User> listOfUsers = userService.findAllUsers();
-        return userService.convertListOfUsersToListOfUsersDto(listOfUsers);
+    public List<User> getAllUsers() {
+        return userService.findAllUsers();
     }
     @GetMapping("/{id}")
-    public UserDto getUserById(@PathVariable(name = "id") long id) {
-        User user = userService.findUserById(id);
-        return userService.convertUserToUserDto(user);
+    public User getUserById(@PathVariable(name = "id") long id) {
+        return userService.findUserById(id);
     }
 
     @PostMapping("")
-    public UserDto createUser(@Valid @RequestBody User user, BindingResult bindingResult) throws NotValidDataException {
+    public User createUser(@Valid @RequestBody UserDto userDto, BindingResult bindingResult)
+            throws NotValidDataException {
         if (bindingResult.hasErrors()) {
             System.out.println(bindingResult);
             throw new NotValidDataException("User is not valid");
         }
-        User u = userService.createNewUser(user);
-        return userService.convertUserToUserDto(u);
+        return userService.createNewUser(userDto);
     }
     @PutMapping("/{id}")
-    public UserDto updateUser(@Valid @RequestBody User user, BindingResult bindingResult,
+    public User updateUser(@Valid @RequestBody UserDto user, BindingResult bindingResult,
                               @PathVariable(name = "id") long id) throws NotValidDataException {
         if (bindingResult.hasErrors()) {
             System.out.println(bindingResult);
             throw new NotValidDataException("User is not valid");
         }
-        User u = userService.updateUser(id, user);
-        return userService.convertUserToUserDto(u);
+        return userService.updateUser(id, user);
     }
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable(name = "id") long id) {
         userService.deleteUser(id);
     }
-//    @PatchMapping("/{email}")
-//    public User getUserByName(@PathVariable(name = "email") String email) {
-//        return userService.findByEmail(email);
-//    }
 }

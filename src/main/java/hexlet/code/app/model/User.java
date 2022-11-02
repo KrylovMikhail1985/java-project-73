@@ -1,6 +1,8 @@
 package hexlet.code.app.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
@@ -34,6 +36,7 @@ public class User {
     private String email;
     @Column(name = "password")
     @Size(min = 3)
+    @JsonIgnore
     private String password;
     @Column(name = "created_at")
     private Date createdAt = new Date();
@@ -99,5 +102,19 @@ public class User {
 
     public void setCreatedAt() {
         this.createdAt = new Date();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", createdAt=" + createdAt +
+                ", listOfCreatedTasks=" + listOfCreatedTasks +
+                ", listOfTasksWhereIExecutor=" + listOfTasksWhereIExecutor +
+                '}';
     }
 }

@@ -16,7 +16,8 @@ public class UserDto {
     @NotNull
     @Email
     private String email;
-
+    @Size(min = 3)
+    private String password;
 
     private Date createdAt;
 
@@ -67,5 +68,13 @@ public class UserDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

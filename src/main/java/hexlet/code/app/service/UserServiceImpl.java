@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,7 +23,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createNewUser(User u) {
+    public User createNewUser(UserDto u) {
         final User user = new User();
         user.setFirstName(u.getFirstName());
         user.setLastName(u.getLastName());
@@ -42,14 +40,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(long id, User userDto) throws NotValidDataException {
+    public User updateUser(long id, UserDto userDto) throws NotValidDataException {
         final User user = userRepository.findById(id).orElseThrow(
-                () -> new NotValidDataException("!!!!---UserService updateUser---!!!!"));
+                () -> new NotValidDataException(""));
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setEmail(userDto.getEmail());
-//        String password = encoder.encode(userDto.getPassword());
-//        user.setPassword(password);
+        String password = encoder.encode(userDto.getPassword());
+        user.setPassword(password);
         user.setCreatedAt();
         userRepository.save(user);
         return user;
@@ -64,25 +62,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email);
     }
 
-    @Override
-    public UserDto convertUserToUserDto(User user) {
-            UserDto userDto = new UserDto();
-            userDto.setId(user.getId());
-            userDto.setFirstName(user.getFirstName());
-            userDto.setLastName(user.getLastName());
-            userDto.setEmail(user.getEmail());
-            userDto.setCreatedAt(user.getCreatedAt());
-            return userDto;
-    }
-
-    @Override
-    public List<UserDto> convertListOfUsersToListOfUsersDto(List<User> listOfUsers) {
-        List<UserDto> userDtoList = new ArrayList<>();
-        for (User user: listOfUsers) {
-            userDtoList.add(convertUserToUserDto(user));
-        }
-        return userDtoList;
-    }
     @Override
     public User getCurrentUser() {
         String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();

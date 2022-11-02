@@ -7,14 +7,12 @@ import hexlet.code.app.model.User;
 import java.util.List;
 
 public interface UserService {
-    User createNewUser(User user);
+    User createNewUser(UserDto userDto);
     User findUserById(long id);
     List<User> findAllUsers();
-    User updateUser(long id, User user) throws NotValidDataException;
+    User updateUser(long id, UserDto userDto) throws NotValidDataException;
     void deleteUser(long id);
     User findByEmail(String firstName);
-    UserDto convertUserToUserDto(User user);
-    List<UserDto> convertListOfUsersToListOfUsersDto(List<User> listOfUsers);
     User getCurrentUser();
     User findUserByUserId(long id);
 }
