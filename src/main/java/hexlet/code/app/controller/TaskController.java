@@ -32,11 +32,7 @@ public class TaskController {
         return taskService.findAllTasks();
     }
     @PostMapping("/tasks")
-    public Task createNewTask(@RequestBody TaskDto taskDto, BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            System.out.println(bindingResult);
-//            throw new RuntimeException();
-//        }
+    public Task createNewTask(@RequestBody TaskDto taskDto) {
         return taskService.createNewTask(taskDto);
     }
     @PutMapping("/tasks/{id}")

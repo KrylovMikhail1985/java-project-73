@@ -9,3 +9,5 @@ spring:
     active: ${PRODUCTION:development}
 
 base-url: api
+jwt-token-secret: MySecret0ScxWoc0CW0pjOccGLsS8X8p9oThXdJ8CzK3HzjwEkjhfkjhglkjglulkh
+jwt-token-expired: 3600000

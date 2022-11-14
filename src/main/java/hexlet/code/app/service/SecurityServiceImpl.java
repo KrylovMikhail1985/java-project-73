@@ -1,32 +1,37 @@
 package hexlet.code.app.service;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
+import hexlet.code.app.exception.NotAuthorizedException;
+import hexlet.code.app.model.User;
+import hexlet.code.app.repository.UserRepository;
+import hexlet.code.app.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.security.Key;
 import java.util.Map;
 @Service
 public class SecurityServiceImpl implements SecurityService {
     @Autowired
-    private UserServiceImpl userService;
+    private UserRepository userRepository;
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
     @Autowired
     private PasswordEncoder encoder;
+
     @Override
-    public String getJWT(Map<String, String> map) {
+    public String getJWT(Map<String, String> map) throws NotAuthorizedException {
         String email = map.get("email");
+        User user = userRepository.findByEmail(email).orElse(null);
+        if (user == null) {
+            throw new NotAuthorizedException();
+        }
+
         String password = map.get("password");
-        String correctPassword;
-        correctPassword = userService.findByEmail(email).getPassword();
+        String correctPassword = user.getPassword();
 
         if (encoder.matches(password, correctPassword)) {
-            Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-            return Jwts.builder().setSubject(email).signWith(key).compact();
+            return jwtTokenProvider.createToken(email);
         }
         System.out.println("Password is not correct!");
-        throw new RuntimeException("Password is not correct!");
+        throw new NotAuthorizedException();
     }
 }

@@ -10,6 +10,7 @@ plugins {
     id 'org.siouan.frontend-jdk11' version '6.0.0'
 }
 
+
 application {
 	mainClass = 'hexlet.code.app.AppApplication'
 }

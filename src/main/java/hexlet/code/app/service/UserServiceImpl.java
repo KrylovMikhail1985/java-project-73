@@ -6,9 +6,12 @@ import hexlet.code.app.model.User;
 import hexlet.code.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
+
+import static java.lang.String.format;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -59,13 +62,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException(format("User with email = %s, not found", email)));
     }
 
     @Override
     public User getCurrentUser() {
         String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-        return userRepository.findByEmail(currentUserEmail);
+        return userRepository.findByEmail(currentUserEmail).orElse(null);
     }
     @Override
     public User findUserByUserId(long id) {

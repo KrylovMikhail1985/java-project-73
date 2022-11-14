@@ -3,6 +3,7 @@ package hexlet.code.app.dto;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 public class TaskDto {
     @Size(min = 1)
@@ -11,8 +12,8 @@ public class TaskDto {
     private String description;
     @NotNull
     private long taskStatusId;
-    @NotNull
     private long executorId;
+    private List<Integer> labelIds;
 
     public String getName() {
         return name;
@@ -44,5 +45,13 @@ public class TaskDto {
 
     public void setExecutorId(long executorId) {
         this.executorId = executorId;
+    }
+
+    public List<Integer> getLabelIds() {
+        return labelIds;
+    }
+
+    public void setLabelIds(List<Integer> labelIds) {
+        this.labelIds = labelIds;
     }
 }
