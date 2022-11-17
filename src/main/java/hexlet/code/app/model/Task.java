@@ -50,7 +50,7 @@ public class Task {
             joinColumns = @JoinColumn(name = "task_id"),
             inverseJoinColumns = @JoinColumn(name = "label_id")
     )
-    private List<Label> listOfLabels;
+    private List<Label> labels;
 
     public long getId() {
         return id;
@@ -108,21 +108,21 @@ public class Task {
         this.createdAt = createdAt;
     }
 
-    public List<Label> getListOfLabels() {
-        if (listOfLabels == null) {
-            listOfLabels = new ArrayList<>();
+    public List<Label> getLabels() {
+        if (labels == null) {
+            labels = new ArrayList<>();
         }
-        return listOfLabels;
+        return labels;
     }
 
-    public void setListOfLabels(List<Label> listOfLabels) {
-        this.listOfLabels = listOfLabels;
+    public void setLabels(List<Label> labels) {
+        this.labels = labels;
     }
     public void addLabel(Label label) {
-        if (listOfLabels == null) {
-            listOfLabels = new ArrayList<>();
+        if (labels == null) {
+            labels = new ArrayList<>();
         }
-        this.listOfLabels.add(label);
+        this.labels.add(label);
     }
     @Override
     public String toString() {
@@ -134,7 +134,7 @@ public class Task {
                 ", author=" + author +
                 ", executor=" + executor +
                 ", createdAt=" + createdAt +
-                ", listOfLabels=" + listOfLabels +
+                ", listOfLabels=" + labels +
                 '}';
     }
 }

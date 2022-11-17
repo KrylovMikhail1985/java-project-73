@@ -1,9 +1,11 @@
 package hexlet.code.app.controller;
 
+import com.querydsl.core.types.Predicate;
 import hexlet.code.app.dto.TaskDto;
 import hexlet.code.app.model.Task;
 import hexlet.code.app.service.TaskServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,9 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
-
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -28,9 +28,10 @@ public class TaskController {
         return taskService.fineTaskById(id);
     }
     @GetMapping("/tasks")
-    public List<Task> findAllTasks() {
-        return taskService.findAllTasks();
+    public Iterable<Task> findAllTasks(@QuerydslPredicate(root = Task.class) Predicate predicate) {
+        return taskService.findAllTasks(predicate);
     }
+
     @PostMapping("/tasks")
     public Task createNewTask(@RequestBody TaskDto taskDto) {
         return taskService.createNewTask(taskDto);
