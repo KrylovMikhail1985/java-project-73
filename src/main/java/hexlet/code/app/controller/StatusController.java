@@ -3,6 +3,10 @@ package hexlet.code.app.controller;
 import hexlet.code.app.exception.NotValidDataException;
 import hexlet.code.app.model.Status;
 import hexlet.code.app.service.StatusService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,35 +25,60 @@ import java.util.List;
 public class StatusController {
     @Autowired
     private StatusService statusService;
+    @Operation(summary = "Get all Statuses")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "All Statuses were received"),
+            @ApiResponse(responseCode = "401", description = "Not authenticated request")
+    })
     @PostMapping("/api/statuses")
-    public Status createNewStatus(@Valid @RequestBody Status status, BindingResult bindingResult)
-            throws NotValidDataException {
+    public Status createNewStatus(@Parameter(description = "Status's ID") @Valid @RequestBody Status status,
+                                  BindingResult bindingResult) throws NotValidDataException {
         if (bindingResult.hasErrors()) {
             System.out.println(bindingResult);
             throw new NotValidDataException("Status is not valid");
         }
         return statusService.createNewStatus(status);
     }
+    @Operation(summary = "Get Status by it Id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Status was found"),
+            @ApiResponse(responseCode = "401", description = "Not authenticated request")
+    })
     @GetMapping("/api/statuses/{id}")
-    public Status findStatusById(@PathVariable(name = "id") long id) {
+    public Status findStatusById(@Parameter(description = "Status's ID") @PathVariable(name = "id") long id) {
         return statusService.findStatusById(id);
     }
+    @Operation(summary = "Get all Statuses")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Statuses were successfully received"),
+            @ApiResponse(responseCode = "401", description = "Not authenticated request")
+    })
     @GetMapping("/api/statuses")
     public List<Status> findAllStatuses() {
         return statusService.findAllStatuses();
     }
+    @Operation(summary = "Update current Status")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Status was successfully updated"),
+            @ApiResponse(responseCode = "401", description = "Not authenticated request")
+    })
     @PutMapping("/api/statuses/{id}")
-    public Status updateStatus(@PathVariable(name = "id") long id,
-                                @Valid @RequestBody Status status, BindingResult bindingResult)
-            throws NotValidDataException {
+    public Status updateStatus(@Parameter(description = "Status's ID") @PathVariable(name = "id") long id,
+                               @Parameter(description = "Status's body") @Valid @RequestBody Status status,
+                               BindingResult bindingResult) throws NotValidDataException {
         if (bindingResult.hasErrors()) {
             System.out.println(bindingResult);
             throw new NotValidDataException("Status is not valid");
         }
         return statusService.updateStatus(id, status);
     }
+    @Operation(summary = "Delete current Status")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Status was successfully deleted"),
+            @ApiResponse(responseCode = "401", description = "Not authenticated request")
+    })
     @DeleteMapping("/api/statuses/{id}")
-    public void deleteStatusById(@PathVariable(name = "id") long id) {
+    public void deleteStatusById(@Parameter(description = "Status's ID") @PathVariable(name = "id") long id) {
         statusService.deleteStatus(id);
     }
 }

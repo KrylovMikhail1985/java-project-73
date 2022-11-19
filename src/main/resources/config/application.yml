@@ -11,3 +11,7 @@ spring:
 base-url: api
 jwt-token-secret: ${SECRET:MySecret0ScxWoc0CW0pjOccGLsS8X8p9oThXdJ8CzK3HzjwEkjhfkjhglkjglulkh}
 jwt-token-expired: 3600000
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

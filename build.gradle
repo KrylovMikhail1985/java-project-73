@@ -6,8 +6,11 @@ plugins {
 	id 'jacoco'
 	id 'checkstyle'
     id 'org.liquibase.gradle' version '2.0.4'
-    // Сборщик фронтенда
+    // builder for frontend
     id 'org.siouan.frontend-jdk11' version '6.0.0'
+    // for swagger
+    id "com.github.johnrengelman.processes" version "0.5.0"
+    id "org.springdoc.openapi-gradle-plugin" version "1.4.0"
 }
 
 
@@ -63,8 +66,10 @@ dependencies {
     // for auto filing database
 //    testImplementation 'com.github.database-rider:rider-spring:1.35.0'
     testImplementation 'com.github.database-rider:rider-junit5:1.35.0'
-}
 
+    // for swagger
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
+}
 
 tasks.named('test') {
 	useJUnitPlatform()
@@ -137,6 +142,15 @@ jar {
         )
     }
 }
+
+// for swagger
+// Настраиваем плагин springdoc-openapi-ui
+// Указывем, что после запуска приложения
+// документация доступна по url http://localhost:5000/v3/api-docs
+openApi {
+    apiDocsUrl.set("http://localhost:8092/v3/api-docs")
+}
+
 
 // Сборка фронтенда.
 // Выполняется только если ничего не изменилось.
