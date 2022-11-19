@@ -32,7 +32,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         // Get authorization header and validate
         final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if (isEmpty(header) || !header.startsWith("Bearer ")) {
+        if (isEmpty(header) || !header.startsWith("Bearer ") || header.length() < 15) {
             chain.doFilter(request, response);
             return;
         }
