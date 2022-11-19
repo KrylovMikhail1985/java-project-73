@@ -1,46 +1,46 @@
 LABELS:
-  - ID: 1
-    name: "metka_1"
+  - name: "metka_1"
     created_at: 2022-11-14 20:29:54
-  - ID: 2
-    name: "metka_2"
+  - name: "metka_2"
     created_at: 2022-11-14 20:29:54
-  - ID: 3
-    name: "metka_3"
+  - name: "metka_3"
     created_at: 2022-11-14 20:29:54
 STATUS:
-  - ID: 1
-    name: "Новый"
+  - name: "Новый"
     created_at: 2022-11-14 20:29:54
-  - ID: 2
-    NAME: "В работе"
-    name: 2022-11-14 20:29:54
-  - ID: 3
-    name: "Завершен"
+  - name: "В работе"
+    created_at: 2022-11-14 20:29:54
+  - name: "Завершен"
     created_at: 2022-11-14 20:29:54
 USERS:
-  - ID: 1
-    first_name: "mmm"
+  - first_name: "mmm"
     last_name: "mmm"
     email: "mmm@jjj.ru"
-    password: "$2a$10$FYwmM15tRUxAKQ14RaSAWuy4lQb2TD5Q9Nkm1iVkeQW.3xPNVp41e"
+    password: "$2a$10$kNXhzY6bq0RH7.fp0wfwIumTfNsnOk7xld.3Go2hfORL8cy2zmlBO"
+    created_at: 2022-11-14 20:29:54
+  - first_name: "aaa"
+    last_name: "aaa"
+    email: "aaa@jjj.ru"
+    password: "aaa"
+    created_at: 2022-11-14 20:29:54
+  - first_name: "www"
+    last_name: "www"
+    email: "www@jjj.ru"
+    password: "www"
     created_at: 2022-11-14 20:29:54
 TASKS:
-  - ID: 1
-    name: "Task_1"
+  - name: "task_1"
     description: "Description_t1"
     task_id: 1
     author_id: 1
-    executor_id: 1
+    executor_id: 2
     created_at: 2022-11-14 20:29:54
-  - ID: 2
-    name: "Task_2"
+  - name: "task_2"
     description: "Description_t2"
-    task_id: 1
+    task_id: 2
     author_id: 1
-    executor_id: 1
+    executor_id: 2
     created_at: 2022-11-14 20:29:54
 TASK_LABEL:
-  - ID: 1
-    task_id: 1
+  - task_id: 1
     label_id: 1

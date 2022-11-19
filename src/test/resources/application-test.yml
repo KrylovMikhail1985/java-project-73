@@ -7,10 +7,10 @@ spring:
   config:
     activate:
       on-profiles: test
-  datasource:
-    url: jdbc:h2:mem:db
-    username: sa
-    password:
+#  datasource:
+#    url: jdbc:h2:mem:db
+#    username: sa
+#    password:
 
   liquibase:
     enabled: false

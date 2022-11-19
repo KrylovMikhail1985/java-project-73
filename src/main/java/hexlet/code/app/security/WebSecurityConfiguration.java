@@ -66,7 +66,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         // Set permissions on endpoints
         http.authorizeRequests()
-                .antMatchers("/h2console").permitAll()
+                .antMatchers("/h2console/**").permitAll()
 //                .antMatchers("/test").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/login").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/**").authenticated()
@@ -89,6 +89,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .anyRequest().authenticated();
 
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
-//        http.headers().frameOptions().disable();
+
+        // for exposure h2 dataBase
+        http.headers().frameOptions().disable();
     }
 }

@@ -1,5 +1,8 @@
 package hexlet.code.app;
 
+import com.github.database.rider.core.api.configuration.DBUnit;
+import com.github.database.rider.core.api.dataset.DataSet;
+import com.github.database.rider.junit5.api.DBRider;
 import hexlet.code.app.service.LabelServiceImpl;
 import hexlet.code.app.service.TaskServiceImpl;
 import org.junit.jupiter.api.BeforeAll;
@@ -27,9 +30,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @Transactional
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-//@DBRider
-//@DBUnit(schema = "test")
-//@DataSet(value = "fillingDB.yml")
+@DBRider
 class AppApplicationTests {
     @Autowired
     private MockMvc mockMvc;
@@ -42,27 +43,19 @@ class AppApplicationTests {
     }
     private String headerBearer;
     @BeforeAll
+    @DBUnit(schema = "public")
+    @DataSet("fillingDB.yml")
     public void fillingDB() throws Exception {
-        mockMvc.perform(post("/api/users")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{" +
-                        "\"firstName\": \"mmm\"," +
-                        "\"lastName\": \"mmm\"," +
-                        "\"password\": \"mmm123\"," +
-                        "\"email\": \"mmm@jjj.ru\"" +
-                        "}")
-        );
         MockHttpServletResponse response =
                 mockMvc.perform(post("/api/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{" +
                                 "\"email\": \"mmm@jjj.ru\"," +
-                                "\"password\": \"mmm123\"" +
+                                "\"password\": \"mmm\"" +
                                 "}")
                 ).andReturn().getResponse();
-        this.headerBearer = "Bearer " + response.getContentAsString();
-
-        fillingOtherTable();
+        String token = response.getContentAsString();
+        this.headerBearer = "Bearer " + token;
     }
     @Test
     public void findAllUsers() throws Exception {
@@ -335,19 +328,19 @@ class AppApplicationTests {
                         ).andReturn().getResponse();
         response.setCharacterEncoding("UTF-8");
         assertThat(response.getStatus()).isEqualTo(200);
-        assertThat(response.getContentAsString()).contains("Новая задача", "Новый", "mmm");
+        assertThat(response.getContentAsString()).contains("task_1", "task_2", "Новый", "mmm");
     }
     @Test
     public void getAllTasksWithParamsTest() throws Exception {
         MockHttpServletResponse response =
-                mockMvc.perform(get("/api/tasks?taskStatus=1&executorId=2&labels=2&authorId=1")
+                mockMvc.perform(get("/api/tasks?taskStatus=1&executorId=2&labels=1&authorId=1")
                         .header("Authorization", headerBearer)
                 ).andReturn().getResponse();
         response.setCharacterEncoding("UTF-8");
         assertThat(response.getStatus()).isEqualTo(200);
         assertThat(response.getContentAsString())
-                .contains("Новая задача 2", "Новый", "mmm")
-                .doesNotContain("www");
+                .contains("task_1", "mmm", "metka_1", "aaa")
+                .doesNotContain("task_2", "metka_2", "www");
     }
     @Test
     public void getTaskById() throws Exception {
@@ -357,7 +350,7 @@ class AppApplicationTests {
                         ).andReturn().getResponse();
         response.setCharacterEncoding("UTF-8");
         assertThat(response.getStatus()).isEqualTo(200);
-        assertThat(response.getContentAsString()).contains("Новая задача", "Новый", "mmm");
+        assertThat(response.getContentAsString()).contains("task_1", "Новый", "mmm");
     }
     @Test
     public void createTaskTest() throws Exception {
@@ -454,17 +447,17 @@ class AppApplicationTests {
                 ).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(200);
         response.setCharacterEncoding("UTF-8");
-        assertThat(response.getContentAsString()).contains("Новая метка");
+        assertThat(response.getContentAsString()).contains("metka_1", "metka_2", "metka_3");
     }
     @Test
     public void getLabelsByIdTest() throws Exception {
         MockHttpServletResponse response =
-                mockMvc.perform(get("/api/labels/1")
+                mockMvc.perform(get("/api/labels/2")
                         .header("Authorization", headerBearer)
                 ).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(200);
         response.setCharacterEncoding("UTF-8");
-        assertThat(response.getContentAsString()).contains("Новая метка");
+        assertThat(response.getContentAsString()).contains("metka_2");
     }
     @Test
     public void createNewLabelTest() throws Exception {
@@ -494,7 +487,7 @@ class AppApplicationTests {
     @Test
     public void deleteLabelTest() throws Exception {
         MockHttpServletResponse response =
-                mockMvc.perform(delete("/api/labels/1")
+                mockMvc.perform(delete("/api/labels/3")
                                 .header("Authorization", headerBearer)
                         ).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(200);
@@ -543,74 +536,9 @@ class AppApplicationTests {
     @Test
     public void deleteLabelWithTaskTest() throws Exception {
         MockHttpServletResponse response =
-                mockMvc.perform(delete("/api/labels/2")
+                mockMvc.perform(delete("/api/labels/1")
                                 .header("Authorization", headerBearer)
                         ).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(422);
-    }
-    public void fillingOtherTable() throws Exception {
-        mockMvc.perform(post("/api/users")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{" +
-                        "\"firstName\": \"aaa\"," +
-                        "\"lastName\": \"aaa\"," +
-                        "\"password\": \"aaa123\"," +
-                        "\"email\": \"aaa@jjj.ru\"" +
-                        "}")
-        );
-        mockMvc.perform(post("/api/users")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{" +
-                        "\"firstName\": \"www\"," +
-                        "\"lastName\": \"www\"," +
-                        "\"password\": \"www123\"," +
-                        "\"email\": \"www@jjj.ru\"" +
-                        "}")
-        );
-
-        mockMvc.perform(post("/api/statuses")
-                .header("Authorization", headerBearer)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{" +
-                        "\"name\": \"Новый\"" +
-                        "}")
-        );
-
-        mockMvc.perform(post("/api/labels")
-                .header("Authorization", headerBearer)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{" +
-                        "\"name\": \"Новая метка\"" +
-                        "}")
-        );
-        mockMvc.perform(post("/api/labels")
-                .header("Authorization", headerBearer)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{" +
-                        "\"name\": \"Новая метка 2\"" +
-                        "}")
-        );
-
-        mockMvc.perform(post("/api/tasks")
-                .header("Authorization", headerBearer)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{" +
-                        "\"name\": \"Новая задача\"," +
-                        "\"description\": \"Какое-то описание\"," +
-                        "\"executorId\": 1," +
-                        "\"taskStatusId\": 1" +
-                        "}")
-        );
-        mockMvc.perform(post("/api/tasks")
-                .header("Authorization", headerBearer)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{" +
-                        "\"name\": \"Новая задача 2\"," +
-                        "\"description\": \"Какое-то описание\"," +
-                        "\"executorId\": 2," +
-                        "\"taskStatusId\": 1," +
-                        "\"labelIds\": [2]" +
-                        "}")
-        );
     }
 }
