@@ -13,10 +13,8 @@ import java.util.List;
 public class StatusServiceImpl implements StatusService {
     @Autowired
     private StatusRepository statusRepository;
-    private final List<String> listOfStatuses = List.of("Новый", "В работе", "На тестировании", "Завершен");
     @Override
     public Status createNewStatus(Status status) throws NotValidDataException {
-        checkStatusName(status.getName());
         return statusRepository.save(status);
     }
 
@@ -27,7 +25,6 @@ public class StatusServiceImpl implements StatusService {
 
     @Override
     public Status updateStatus(long id, Status status) throws NotValidDataException {
-        checkStatusName(status.getName());
         Status resultStatus = statusRepository.findById(id).orElseThrow();
         resultStatus.setName(status.getName());
         resultStatus.setCreatedAt(new Date());
@@ -37,13 +34,6 @@ public class StatusServiceImpl implements StatusService {
     @Override
     public void deleteStatus(long id) {
         statusRepository.deleteById(id);
-    }
-    private void checkStatusName(String name) throws NotValidDataException {
-        if (!listOfStatuses.contains(name)) {
-            System.out.println("Status is not valid. Status must be one of: " +
-                    "\"Новый\", \"В работе\", \"На тестировании\", \"Завершен\"");
-            throw new NotValidDataException("myException");
-        }
     }
 
     @Override

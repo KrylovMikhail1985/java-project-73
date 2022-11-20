@@ -248,7 +248,7 @@ class AppApplicationTests {
                         .header("Authorization", headerBearer)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{" +
-                                "\"name\": \"не тот статус\"" +
+                                "\"name\": \"\"" +
                                 "}")
                 ).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(422);
