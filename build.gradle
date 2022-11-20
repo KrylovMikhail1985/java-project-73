@@ -15,16 +15,16 @@ plugins {
 
 
 application {
-	mainClass = 'hexlet.code.app.AppApplication'
+	mainClass = 'hexlet.code.AppApplication'
 }
 
 group = 'hexlet.code'
 version = '1.0-SNAPSHOT'
 //sourceCompatibility = '17'
 
-//compileJava {
-//    options.release = 17
-//}
+compileJava {
+    options.release = 17
+}
 
 repositories {
 	mavenCentral()
@@ -101,7 +101,7 @@ liquibase {
             username 'sa'
             password ''
             // Сравниваем с моделями, задавая пакет
-            referenceUrl 'hibernate:spring:hexlet.code.app.model' +
+            referenceUrl 'hibernate:spring:hexlet.code.model' +
                     // Указываем диалект
                     '?dialect=org.hibernate.dialect.H2Dialect' +
                     // Указываем правила именования таблиц и столбцов,
@@ -140,7 +140,7 @@ jar {
     manifest {
         attributes(
 //                'Class-Path': configurations.compileClasspath.collect { it.getName() }.join(' '),
-                'Main-Class': 'hexlet.code.app.AppApplication'
+                'Main-Class': 'hexlet.code.AppApplication'
         )
     }
 }

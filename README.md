@@ -7,7 +7,7 @@
 4. Open API documentation
 5. Testing with mock + filling db with DBRider
 
-## Demo: https://java-project-73-production.up.railway.app
+## Demo: https://java-project-73-production.up.railway.app/signup
 
 ### Open Api documentation by: 
 https://java-project-73-production.up.railway.app/swagger-ui.html

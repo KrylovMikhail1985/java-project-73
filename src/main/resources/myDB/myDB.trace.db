@@ -26,7 +26,7 @@ Wrong user name or password [28000-214]
 	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at hexlet.code.app.security.jwt.JwtTokenFilter.doFilterInternal(JwtTokenFilter.java:42)
+	at jwt.security.hexlet.code.JwtTokenFilter.doFilterInternal(JwtTokenFilter.java:42)
 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
