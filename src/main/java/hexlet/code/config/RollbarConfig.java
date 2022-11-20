@@ -12,25 +12,16 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @Configuration()
 @EnableWebMvc
 @ComponentScan({
-
-// UPDATE TO YOUR PROJECT PACKAGE
         "hexlet.code",
         "com.rollbar.spring"
-
 })
 public class RollbarConfig {
     @Value(value = "${ACCESS_TOKEN}")
-    private String accessToken;
+    private String accessTToken;
 
-    /**
-     * Register a Rollbar bean to configure App with Rollbar.
-     */
     @Bean
     public Rollbar rollbar() {
-
-        // Your ACCESS TOKEN is:
-        // Make sure to keep this secure
-        return new Rollbar(getRollbarConfigs(accessToken));
+        return new Rollbar(getRollbarConfigs(accessTToken));
     }
 
     private Config getRollbarConfigs(String accessToken) {
