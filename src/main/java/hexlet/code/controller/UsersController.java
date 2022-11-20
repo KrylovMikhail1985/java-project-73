@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 
 import javax.validation.Valid;
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.CREATED;
 
 
 @RestController
@@ -50,8 +53,9 @@ public class UsersController {
     }
 
     @Operation(summary = "Create new User")
-    @ApiResponse(responseCode = "200", description = "User was successfully created")
+    @ApiResponse(responseCode = "201", description = "User was successfully created")
     @PostMapping("")
+    @ResponseStatus(CREATED)
     public User createUser(@Parameter(description = "User's body") @Valid @RequestBody UserDto userDto,
                            BindingResult bindingResult) throws NotValidDataException {
         if (bindingResult.hasErrors()) {

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
 import javax.validation.Valid;
+
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping("/api")
@@ -47,10 +50,11 @@ public class TaskController {
     }
     @Operation(summary = "Create new Task")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Task was successfully created"),
+            @ApiResponse(responseCode = "201", description = "Task was successfully created"),
             @ApiResponse(responseCode = "401", description = "Not authenticated request")
     })
     @PostMapping("/tasks")
+    @ResponseStatus(CREATED)
     public Task createNewTask(@Parameter(description = "Task's body") @RequestBody TaskDto taskDto) {
         return taskService.createNewTask(taskDto);
     }

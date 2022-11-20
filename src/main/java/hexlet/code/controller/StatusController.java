@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,16 +22,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.validation.Valid;
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.CREATED;
+
 @RestController
 public class StatusController {
     @Autowired
     private StatusService statusService;
     @Operation(summary = "Get all Statuses")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "All Statuses were received"),
+            @ApiResponse(responseCode = "201", description = "All Statuses were received"),
             @ApiResponse(responseCode = "401", description = "Not authenticated request")
     })
     @PostMapping("/api/statuses")
+    @ResponseStatus(CREATED)
     public Status createNewStatus(@Parameter(description = "Status's ID") @Valid @RequestBody Status status,
                                   BindingResult bindingResult) throws NotValidDataException {
         if (bindingResult.hasErrors()) {

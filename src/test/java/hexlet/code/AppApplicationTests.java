@@ -80,7 +80,7 @@ class AppApplicationTests {
                                 "\"email\": \"aaaa@jkl.ru\"" +
                                 "}")
                 ).andReturn().getResponse();
-        assertThat(response.getStatus()).isEqualTo(200);
+        assertThat(response.getStatus()).isEqualTo(201);
         assertThat(response.getContentAsString()).contains("Petrov");
         assertThat(response.getContentAsString()).doesNotContain("password");
     }
@@ -238,7 +238,7 @@ class AppApplicationTests {
                                 "}")
                 ).andReturn().getResponse();
         response.setCharacterEncoding("UTF-8");
-        assertThat(response.getStatus()).isEqualTo(200);
+        assertThat(response.getStatus()).isEqualTo(201);
         assertThat(response.getContentAsString()).contains("В работе");
     }
     @Test
@@ -365,7 +365,7 @@ class AppApplicationTests {
                             "\"taskStatusId\": 1" +
                             "}")).andReturn().getResponse();
         response.setCharacterEncoding("UTF-8");
-        assertThat(response.getStatus()).isEqualTo(200);
+        assertThat(response.getStatus()).isEqualTo(201);
         assertThat(response.getContentAsString()).contains("TestTask", "Новый", "mmm");
     }
     @Test
@@ -468,7 +468,7 @@ class AppApplicationTests {
                         .content("{" +
                                 "\"name\": \"Еще одна метка\"" +
                                 "}")).andReturn().getResponse();
-        assertThat(response.getStatus()).isEqualTo(200);
+        assertThat(response.getStatus()).isEqualTo(201);
         response.setCharacterEncoding("UTF-8");
         assertThat(response.getContentAsString()).contains("Еще одна метка");
     }
