@@ -43,15 +43,15 @@ public class TaskDto {
         return executorId;
     }
 
-    public void setExecutorId(long executorId) {
-        this.executorId = executorId;
-    }
+//    public void setExecutorId(long executorId) {
+//        this.executorId = executorId;
+//    }
 
     public List<Integer> getLabelIds() {
         return labelIds;
     }
 
-    public void setLabelIds(List<Integer> labelIds) {
-        this.labelIds = labelIds;
-    }
+//    public void setLabelIds(List<Integer> labelIds) {
+//        this.labelIds = labelIds;
+//    }
 }

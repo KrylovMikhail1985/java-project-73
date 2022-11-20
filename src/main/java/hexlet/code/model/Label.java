@@ -54,13 +54,13 @@ public class Label {
         this.name = name;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
+//    public Date getCreatedAt() {
+//        return createdAt;
+//    }
+//
+//    public void setCreatedAt(Date createdAt) {
+//        this.createdAt = createdAt;
+//    }
 
     public List<Task> getListOfTasks() {
         if (listOfTasks == null) {
@@ -69,9 +69,9 @@ public class Label {
         return listOfTasks;
     }
 
-    public void setListOfTasks(List<Task> listOfTasks) {
-        this.listOfTasks = listOfTasks;
-    }
+//    public void setListOfTasks(List<Task> listOfTasks) {
+//        this.listOfTasks = listOfTasks;
+//    }
     public void addTask(Task task) {
         if (listOfTasks == null) {
             listOfTasks = new ArrayList<>();

@@ -96,9 +96,9 @@ public class User {
         this.password = password;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
+//    public Date getCreatedAt() {
+//        return createdAt;
+//    }
 
     public void setCreatedAt() {
         this.createdAt = new Date();
