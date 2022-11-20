@@ -9,8 +9,9 @@ spring:
     active: ${PRODUCTION:development}
 
 base-url: api
-jwt-token-secret: ${SECRET:MySecret0ScxWoc0CW0pjOccGLsS8X8p9oThXdJ8CzK3HzjwEkjhfkjhglkjglulkh}
+jwt-token-secret: ${SECRET:lkrfslrekjfalecmasieuro3wurhnsjkcafjsefljashkfaewjkfljsrhkjgjsfndjtgtdlgjsghsjdyr}
 jwt-token-expired: 3600000
+ACCESS_TOKEN: ${SECRET_ACCESS_TOKEN:kjgkjgkjgkgjgjygkujgfjyf}
 
 springdoc:
   swagger-ui:

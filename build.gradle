@@ -69,6 +69,8 @@ dependencies {
 
     // for swagger
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
+
+    implementation('com.rollbar:rollbar-spring-boot-webmvc:1.8.1')
 }
 
 tasks.named('test') {
