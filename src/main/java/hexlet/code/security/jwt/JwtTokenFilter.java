@@ -32,13 +32,18 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         // Get authorization header and validate
         final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if (isEmpty(header) || !header.startsWith("Bearer ") || header.length() < 15) {
+        if (isEmpty(header) || header.length() < 15) {
             chain.doFilter(request, response);
             return;
         }
 
         // Get jwt token and validate
-        final String token = header.split(" ")[1].trim();
+        String token;
+        if (header.startsWith("Bearer")) {
+            token = header.split(" ")[1].trim();
+        } else {
+            token = header.trim();
+        }
         if (!jwtTokenProvider.tokenIsValid(token)) {
             chain.doFilter(request, response);
             return;
