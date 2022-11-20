@@ -126,15 +126,15 @@ public class Task {
     }
     @Override
     public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", taskStatus=" + taskStatus +
-                ", author=" + author +
-                ", executor=" + executor +
-                ", createdAt=" + createdAt +
-                ", listOfLabels=" + labels +
-                '}';
+        return "Task{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", description='" + description + '\''
+                + ", taskStatus=" + taskStatus
+                + ", author=" + author
+                + ", executor=" + executor
+                + ", createdAt=" + createdAt
+                + ", listOfLabels=" + labels
+                + '}';
     }
 }

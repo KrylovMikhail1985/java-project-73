@@ -81,10 +81,10 @@ public class Label {
 
     @Override
     public String toString() {
-        return "Label{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", createdAt=" + createdAt +
-                '}';
+        return "Label{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", createdAt=" + createdAt
+                + '}';
     }
 }

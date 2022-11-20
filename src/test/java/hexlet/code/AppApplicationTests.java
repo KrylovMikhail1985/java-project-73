@@ -49,10 +49,10 @@ class AppApplicationTests {
         MockHttpServletResponse response =
                 mockMvc.perform(post("/api/login")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{" +
-                                "\"email\": \"mmm@jjj.ru\"," +
-                                "\"password\": \"mmm\"" +
-                                "}")
+                        .content("{"
+                                + "\"email\": \"mmm@jjj.ru\","
+                                + "\"password\": \"mmm\""
+                                + "}")
                 ).andReturn().getResponse();
         String token = response.getContentAsString();
         this.headerBearer = "Bearer " + token;
@@ -73,12 +73,12 @@ class AppApplicationTests {
         MockHttpServletResponse response =
                 mockMvc.perform(post("/api/users")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{" +
-                                "\"firstName\": \"Ivan\"," +
-                                "\"lastName\": \"Petrov\"," +
-                                "\"password\": \"12345\"," +
-                                "\"email\": \"aaaa@jkl.ru\"" +
-                                "}")
+                        .content("{"
+                                + "\"firstName\": \"Ivan\","
+                                + "\"lastName\": \"Petrov\","
+                                + "\"password\": \"12345\","
+                                + "\"email\": \"aaaa@jkl.ru\""
+                                + "}")
                 ).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(201);
         assertThat(response.getContentAsString()).contains("Petrov");
@@ -100,12 +100,12 @@ class AppApplicationTests {
                 mockMvc.perform(put("/api/users/1")
                                 .header("Authorization", headerBearer)
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content("{" +
-                                        "\"firstName\": \"ShuraUpdate\"," +
-                                        "\"lastName\": \"SidorovUpdate\"," +
-                                        "\"password\": \"somePassword\"," +
-                                        "\"email\": \"lll@jkl.ru\"" +
-                                        "}")
+                                .content("{"
+                                        + "\"firstName\": \"ShuraUpdate\","
+                                        + "\"lastName\": \"SidorovUpdate\","
+                                        + "\"password\": \"somePassword\","
+                                        + "\"email\": \"lll@jkl.ru\""
+                                        + "}")
                         ).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(200);
         assertThat(response.getContentAsString())
@@ -119,12 +119,12 @@ class AppApplicationTests {
         MockHttpServletResponse response =
                 mockMvc.perform(post("/api/users")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{" +
-                                "\"firstName\": \"\"," +
-                                "\"lastName\": \"Petrov\"," +
-                                "\"password\": \"12345\"," +
-                                "\"email\": \"aaaa@jkl.ru\"" +
-                                "}")
+                        .content("{"
+                                + "\"firstName\": \"\","
+                                + "\"lastName\": \"Petrov\","
+                                + "\"password\": \"12345\","
+                                + "\"email\": \"aaaa@jkl.ru\""
+                                + "}")
                 ).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(422);
     }
@@ -133,12 +133,12 @@ class AppApplicationTests {
         MockHttpServletResponse response =
                 mockMvc.perform(post("/api/users")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{" +
-                                "\"firstName\": \"Ivan\"," +
-                                "\"lastName\": \"\"," +
-                                "\"password\": \"12345\"," +
-                                "\"email\": \"aaaa@jkl.ru\"" +
-                                "}")
+                        .content("{"
+                                + "\"firstName\": \"Ivan\","
+                                + "\"lastName\": \"\","
+                                + "\"password\": \"12345\","
+                                + "\"email\": \"aaaa@jkl.ru\""
+                                + "}")
                 ).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(422);
     }
@@ -147,12 +147,12 @@ class AppApplicationTests {
         MockHttpServletResponse response =
                 mockMvc.perform(post("/api/users")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{" +
-                                "\"firstName\": \"Ivan\"," +
-                                "\"lastName\": \"Petrov\"," +
-                                "\"password\": \"12345\"," +
-                                "\"email\": \"aaaaru\"" +
-                                "}")
+                        .content("{"
+                                + "\"firstName\": \"Ivan\","
+                                + "\"lastName\": \"Petrov\","
+                                + "\"password\": \"12345\","
+                                + "\"email\": \"aaaaru\""
+                                + "}")
                 ).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(422);
     }
@@ -161,12 +161,12 @@ class AppApplicationTests {
         MockHttpServletResponse response =
                 mockMvc.perform(post("/api/users")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{" +
-                                "\"firstName\": \"Ivan\"," +
-                                "\"lastName\": \"Petrov\"," +
-                                "\"password\": \"h\"," +
-                                "\"email\": \"aaaa@jkl.ru\"" +
-                                "}")
+                        .content("{"
+                                + "\"firstName\": \"Ivan\","
+                                + "\"lastName\": \"Petrov\","
+                                + "\"password\": \"h\","
+                                + "\"email\": \"aaaa@jkl.ru\""
+                                + "}")
                 ).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(422);
     }
@@ -176,11 +176,11 @@ class AppApplicationTests {
                 mockMvc.perform(put("/api/users/1")
                         .header("Authorization", headerBearer)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{" +
-                                "\"firstName\": \"\"," +
-                                "\"lastName\": \"SidorovUpdate\"," +
-                                "\"email\": \"lll@jkl.ru\"" +
-                                "}")
+                        .content("{"
+                                + "\"firstName\": \"\","
+                                + "\"lastName\": \"SidorovUpdate\","
+                                + "\"email\": \"lll@jkl.ru\""
+                                + "}")
                 ).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(422);
     }
@@ -190,11 +190,11 @@ class AppApplicationTests {
                 mockMvc.perform(put("/api/users/1")
                         .header("Authorization", headerBearer)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{" +
-                                "\"firstName\": \"ShuraUpdate\"," +
-                                "\"lastName\": \"\"," +
-                                "\"email\": \"lll@jkl.ru\"" +
-                                "}")
+                        .content("{"
+                                + "\"firstName\": \"ShuraUpdate\","
+                                + "\"lastName\": \"\","
+                                + "\"email\": \"lll@jkl.ru\""
+                                + "}")
                 ).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(422);
     }
@@ -204,11 +204,11 @@ class AppApplicationTests {
                 mockMvc.perform(put("/api/users/1")
                         .header("Authorization", headerBearer)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{" +
-                                "\"firstName\": \"ShuraUpdate\"," +
-                                "\"lastName\": \"SidorovUpdate\"," +
-                                "\"email\": \"llu\"" +
-                                "}")
+                        .content("{"
+                                + "\"firstName\": \"ShuraUpdate\","
+                                + "\"lastName\": \"SidorovUpdate\","
+                                + "\"email\": \"llu\""
+                                + "}")
                 ).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(422);
     }
@@ -233,9 +233,9 @@ class AppApplicationTests {
                 mockMvc.perform(post("/api/statuses")
                         .header("Authorization", headerBearer)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{" +
-                                "\"name\": \"В работе\"" +
-                                "}")
+                        .content("{"
+                                + "\"name\": \"В работе\""
+                                + "}")
                 ).andReturn().getResponse();
         response.setCharacterEncoding("UTF-8");
         assertThat(response.getStatus()).isEqualTo(201);
@@ -247,9 +247,9 @@ class AppApplicationTests {
                 mockMvc.perform(post("/api/statuses")
                         .header("Authorization", headerBearer)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{" +
-                                "\"name\": \"\"" +
-                                "}")
+                        .content("{"
+                                + "\"name\": \"\""
+                                + "}")
                 ).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(422);
     }
@@ -258,9 +258,9 @@ class AppApplicationTests {
         MockHttpServletResponse response =
                 mockMvc.perform(post("/api/statuses")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{" +
-                                "\"Name\": \"В работе\"" +
-                                "}")
+                        .content("{"
+                                + "\"Name\": \"В работе\""
+                                + "}")
                 ).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(401);
     }
@@ -286,9 +286,9 @@ class AppApplicationTests {
                 mockMvc.perform(put("/api/statuses/1")
                         .header("Authorization", headerBearer)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{" +
-                                "\"name\": \"В работе\"" +
-                                "}")
+                        .content("{"
+                                + "\"name\": \"В работе\""
+                                + "}")
                 ).andReturn().getResponse();
         response.setCharacterEncoding("UTF-8");
         assertThat(response.getStatus()).isEqualTo(200);
@@ -299,9 +299,9 @@ class AppApplicationTests {
         MockHttpServletResponse response =
                 mockMvc.perform(put("/api/statuses/1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{" +
-                                "\"name\": \"В работе\"" +
-                                "}")
+                        .content("{"
+                                + "\"name\": \"В работе\""
+                                + "}")
                 ).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(401);
     }
@@ -358,12 +358,12 @@ class AppApplicationTests {
                 mockMvc.perform(post("/api/tasks")
                         .header("Authorization", headerBearer)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content("{" +
-                            "\"name\": \"TestTask\"," +
-                            "\"description\": \"Какое-то описание\"," +
-                            "\"executorId\": 1," +
-                            "\"taskStatusId\": 1" +
-                            "}")).andReturn().getResponse();
+                    .content("{"
+                            + "\"name\": \"TestTask\","
+                            + "\"description\": \"Какое-то описание\","
+                            + "\"executorId\": 1,"
+                            + "\"taskStatusId\": 1"
+                            + "}")).andReturn().getResponse();
         response.setCharacterEncoding("UTF-8");
         assertThat(response.getStatus()).isEqualTo(201);
         assertThat(response.getContentAsString()).contains("TestTask", "Новый", "mmm");
@@ -374,12 +374,12 @@ class AppApplicationTests {
                 mockMvc.perform(put("/api/tasks/1")
                         .header("Authorization", headerBearer)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{" +
-                                "\"name\": \"Новая задача updated\"," +
-                                "\"description\": \"Какое-то описание\"," +
-                                "\"executorId\": 1," +
-                                "\"taskStatusId\": 1" +
-                                "}")).andReturn().getResponse();
+                        .content("{"
+                                + "\"name\": \"Новая задача updated\","
+                                + "\"description\": \"Какое-то описание\","
+                                + "\"executorId\": 1,"
+                                + "\"taskStatusId\": 1"
+                                + "}")).andReturn().getResponse();
         response.setCharacterEncoding("UTF-8");
         assertThat(response.getStatus()).isEqualTo(200);
         assertThat(response.getContentAsString()).contains("Новая задача updated");
@@ -411,12 +411,12 @@ class AppApplicationTests {
         MockHttpServletResponse response =
                 mockMvc.perform(post("/api/tasks")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{" +
-                                "\"name\": \"TestTask\"," +
-                                "\"description\": \"Какое-то описание\"," +
-                                "\"executorId\": 1," +
-                                "\"taskStatusId\": 1" +
-                                "}")).andReturn().getResponse();
+                        .content("{"
+                                + "\"name\": \"TestTask\","
+                                + "\"description\": \"Какое-то описание\","
+                                + "\"executorId\": 1,"
+                                + "\"taskStatusId\": 1"
+                                + "}")).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(401);
     }
     @Test
@@ -424,12 +424,12 @@ class AppApplicationTests {
         MockHttpServletResponse response =
                 mockMvc.perform(put("/api/tasks/1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{" +
-                                "\"name\": \"Новая задача updated\"," +
-                                "\"description\": \"Какое-то описание\"," +
-                                "\"executorId\": 1," +
-                                "\"taskStatusId\": 1" +
-                                "}")).andReturn().getResponse();
+                        .content("{"
+                                + "\"name\": \"Новая задача updated\","
+                                + "\"description\": \"Какое-то описание\","
+                                + "\"executorId\": 1,"
+                                + "\"taskStatusId\": 1"
+                                + "}")).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(401);
     }
     @Test
@@ -465,9 +465,9 @@ class AppApplicationTests {
                 mockMvc.perform(post("/api/labels")
                         .header("Authorization", headerBearer)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{" +
-                                "\"name\": \"Еще одна метка\"" +
-                                "}")).andReturn().getResponse();
+                        .content("{"
+                                + "\"name\": \"Еще одна метка\""
+                                + "}")).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(201);
         response.setCharacterEncoding("UTF-8");
         assertThat(response.getContentAsString()).contains("Еще одна метка");
@@ -478,9 +478,9 @@ class AppApplicationTests {
                 mockMvc.perform(put("/api/labels/1")
                         .header("Authorization", headerBearer)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{" +
-                                "\"name\": \"updated Name\"" +
-                                "}")).andReturn().getResponse();
+                        .content("{"
+                                + "\"name\": \"updated Name\""
+                                + "}")).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(200);
         assertThat(response.getContentAsString()).contains("updated Name");
     }
@@ -511,9 +511,9 @@ class AppApplicationTests {
         MockHttpServletResponse response =
                 mockMvc.perform(post("/api/labels")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{" +
-                                "\"name\": \"Еще одна метка\"" +
-                                "}")).andReturn().getResponse();
+                        .content("{"
+                                + "\"name\": \"Еще одна метка\""
+                                + "}")).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(401);
     }
     @Test
@@ -521,9 +521,9 @@ class AppApplicationTests {
         MockHttpServletResponse response =
                 mockMvc.perform(put("/api/labels/1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{" +
-                                "\"name\": \"updated Name\"" +
-                                "}")).andReturn().getResponse();
+                        .content("{"
+                                + "\"name\": \"updated Name\""
+                                + "}")).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(401);
     }
     @Test
