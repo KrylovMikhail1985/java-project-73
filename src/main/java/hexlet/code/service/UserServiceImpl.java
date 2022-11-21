@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService {
         user.setEmail(u.getEmail());
         String password = encoder.encode(u.getPassword());
         user.setPassword(password);
+        user.setCreatedAt();
         userRepository.save(user);
         return user;
     }

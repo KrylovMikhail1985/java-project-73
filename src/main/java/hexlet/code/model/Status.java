@@ -20,7 +20,6 @@ public class Status {
     private String name;
     @Column
     private Date createdAt = new Date();
-//    private final List<String> listOfStatuses = List.of("новый", "в работе", "на тестировании", "завершен");
     public long getId() {
         return id;
     }
@@ -37,9 +36,9 @@ public class Status {
         this.name = name;
     }
 
-//    public Date getCreatedAt() {
-//        return createdAt;
-//    }
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;

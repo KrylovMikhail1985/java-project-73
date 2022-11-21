@@ -58,13 +58,13 @@ public class UserDto {
         this.id = id;
     }
 
-//    public Date getCreatedAt() {
-//        return createdAt;
-//    }
-//
-//    public void setCreatedAt(Date createdAt) {
-//        this.createdAt = createdAt;
-//    }
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
     public void setEmail(String email) {
         this.email = email;

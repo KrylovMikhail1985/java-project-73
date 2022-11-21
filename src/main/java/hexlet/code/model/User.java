@@ -39,7 +39,7 @@ public class User {
     @JsonIgnore
     private String password;
     @Column(name = "created_at")
-    private Date createdAt = new Date();
+    private Date createdAt;
     @OneToMany(mappedBy = "author",
             cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST})
     private List<Task> listOfCreatedTasks;
@@ -96,9 +96,9 @@ public class User {
         this.password = password;
     }
 
-//    public Date getCreatedAt() {
-//        return createdAt;
-//    }
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
     public void setCreatedAt() {
         this.createdAt = new Date();

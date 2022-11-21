@@ -27,19 +27,19 @@ public class TaskLabel {
         this.id = id;
     }
 
-//    public long getTaskId() {
-//        return taskId;
-//    }
-//
-//    public void setTaskId(long taskId) {
-//        this.taskId = taskId;
-//    }
-//
-//    public long getLabelId() {
-//        return labelId;
-//    }
-//
-//    public void setLabelId(long labelId) {
-//        this.labelId = labelId;
-//    }
+    public long getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(long taskId) {
+        this.taskId = taskId;
+    }
+
+    public long getLabelId() {
+        return labelId;
+    }
+
+    public void setLabelId(long labelId) {
+        this.labelId = labelId;
+    }
 }

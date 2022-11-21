@@ -115,9 +115,9 @@ public class Task {
         return labels;
     }
 
-//    public void setLabels(List<Label> labels) {
-//        this.labels = labels;
-//    }
+    public void setLabels(List<Label> labels) {
+        this.labels = labels;
+    }
     public void addLabel(Label label) {
         if (labels == null) {
             labels = new ArrayList<>();
