@@ -48,7 +48,8 @@ public class LabelController {
     @Operation(summary = "Create new Label")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Labels were created"),
-            @ApiResponse(responseCode = "401", description = "Not authenticated request")
+            @ApiResponse(responseCode = "401", description = "Not authenticated request"),
+            @ApiResponse(responseCode = "400", description = "Bad Request")
     })
     @PostMapping("/labels")
     @ResponseStatus(CREATED)
@@ -58,7 +59,8 @@ public class LabelController {
     @Operation(summary = "Update current Label")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Label was updated"),
-            @ApiResponse(responseCode = "401", description = "Not authenticated request")
+            @ApiResponse(responseCode = "401", description = "Not authenticated request"),
+            @ApiResponse(responseCode = "400", description = "Bad Request")
     })
     @PutMapping("/labels/{id}")
     public Label updateLabel(@Parameter(description = "Label's ID") @PathVariable(name = "id") long id,

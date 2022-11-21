@@ -61,16 +61,12 @@ public class TaskController {
     @Operation(summary = "Update current Task")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Task was successfully updated"),
-            @ApiResponse(responseCode = "401", description = "Not authenticated request")
+            @ApiResponse(responseCode = "401", description = "Not authenticated request"),
+            @ApiResponse(responseCode = "400", description = "Bad Request")
     })
     @PutMapping("/tasks/{id}")
     public Task updateTask(@Parameter(description = "Task's ID") @PathVariable(name = "id") long id,
-                           @Parameter(description = "Task's body") @Valid @RequestBody TaskDto taskDto,
-                           BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            System.out.println(bindingResult);
-            throw new RuntimeException();
-        }
+                           @Parameter(description = "Task's body") @Valid @RequestBody TaskDto taskDto) {
         return taskService.updateTask(id, taskDto);
     }
     @Operation(summary = "Delete current Task")

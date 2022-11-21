@@ -31,14 +31,14 @@ public class StatusController {
     @Operation(summary = "Get all Statuses")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "All Statuses were received"),
-            @ApiResponse(responseCode = "401", description = "Not authenticated request")
+            @ApiResponse(responseCode = "401", description = "Not authenticated request"),
+            @ApiResponse(responseCode = "422", description = "Not valid data")
     })
     @PostMapping("/api/statuses")
     @ResponseStatus(CREATED)
-    public Status createNewStatus(@Parameter(description = "Status's ID") @Valid @RequestBody Status status,
+    public Status createNewStatus(@Parameter(description = "Status's body") @Valid @RequestBody Status status,
                                   BindingResult bindingResult) throws NotValidDataException {
         if (bindingResult.hasErrors()) {
-            System.out.println(bindingResult);
             throw new NotValidDataException("Status is not valid");
         }
         return statusService.createNewStatus(status);
@@ -64,7 +64,8 @@ public class StatusController {
     @Operation(summary = "Update current Status")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Status was successfully updated"),
-            @ApiResponse(responseCode = "401", description = "Not authenticated request")
+            @ApiResponse(responseCode = "401", description = "Not authenticated request"),
+            @ApiResponse(responseCode = "422", description = "Not valid data")
     })
     @PutMapping("/api/statuses/{id}")
     public Status updateStatus(@Parameter(description = "Status's ID") @PathVariable(name = "id") long id,
